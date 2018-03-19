@@ -10,15 +10,17 @@ var io = socketIO(server);
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 
-app.set('port', 5000);
+var port = process.env.PORT || 5000;
+
+app.set('port', port);
 app.use('/static', express.static(__dirname + '/static'));
 // Routing
 app.get('/', function (request, response) {
   response.sendFile(path.join(__dirname, '/static/index.html'));
 });
 
-server.listen(5000, function () {
-  console.log('Starting server on port 5000');
+server.listen(port, function () {
+  console.log('Starting server on port ' + port);
 });
 
 
