@@ -12,7 +12,6 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 5000;
 
-
 app.set('port', port);
 app.use('/static', express.static(__dirname + '/static'));
 // Routing
@@ -24,14 +23,9 @@ app.listen(port, function(){
   console.log('Starting server on port ' + port);
 });
 
-server.listen(port, function () {
-  console.log('Starting server on port ' + port);
-});
-
-
-
 var client = require('./client');
 var dealer = require('./dealer.js');
+
 
 var cardDealer = new dealer.Dealer();
 
