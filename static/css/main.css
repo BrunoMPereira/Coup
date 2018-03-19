@@ -1,0 +1,127 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    background: url('/static/table_texture.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+#hand_images {
+    margin-left: 40.75%;
+    width: 18.5%;
+    margin-top: 24%;
+    position: fixed;
+}
+
+#hand_images img {
+    width: 45%;
+    margin-left: 3%;
+    user-select: none;
+    -webkit-user-drag: none;
+    position: relative;
+}
+
+#game-info{
+    position: absolute;
+    right: 0.5%;
+    bottom: 0.5%;
+    font-size: 20px;
+}
+
+#turn-label{
+    display:none;
+}
+
+#coins{
+    display:inline;
+}
+
+#deck{
+    position:absolute;
+    right:0.5%;
+    top:0.5%;
+}
+
+#cards-left{
+    font-size:20px;
+    display: block;
+    text-align: center;
+}
+
+#deck-image{
+    width:19vh;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+#deck-image:hover{
+    opacity:1;
+}
+
+
+#chat-container{
+    position: absolute;
+    bottom: 0%;
+    left:0.5%;
+    width:20%;
+}
+
+#chat-messages-container{
+    background-color:black;
+    opacity:0.5;
+    padding:3.5%;
+    overflow-wrap: normal;
+    overflow-x: hidden;
+    word-wrap: break-word;
+    height:50%;
+}
+
+.chat-message{
+    display: block;
+    margin-bottom: 3%;
+    font-size:14px;
+}
+
+#message{
+    width:100%;
+}
+
+
+#players-connected{
+    position: fixed;
+    margin-left:1%;
+}
+
+#players-connected span{
+    display:block;
+}
+
+
+#play{
+    display: none;
+    background-color:#AAA;
+    opacity:0.8;
+    width:30%;
+    text-align: center;
+    margin-left:32.5%;
+    z-index:999;
+    margin-top:8%;
+    padding:1%;
+  
+}
+
+#play-action-buttons{
+    margin-top:2%;
+}
+#challenge{
+    background-color:red;
+    color:white;
+}
+
+#allow{
+    background-color:green;
+    color:white;
+}

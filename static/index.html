@@ -1,0 +1,72 @@
+<html>
+
+<head>
+  <title>Coup</title>
+  <link href="/static/css/main.css" rel="stylesheet">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/static/jquery-3.3.1.min.js"></script>
+  <script src="/static/game.js"></script>
+</head>
+
+<body onload="newPlayer()">
+  <button onclick="nextTurn();">NEXT TURN</button>
+  <button onclick="resetDeck();">RESET DECK</button>
+  <button onclick="shuffleDeck();">SHUFFLE</button>
+  <br>
+  <br>
+
+  <button onclick="oneCoin();">Take 1 Coin</button>
+  <button onclick="twoCoins();">Take 2 Coins</button>
+
+  <button onclick="shuffleDeck();">Take 3 Coins with DUKE</button>
+  <br>
+  <br>
+  <br>
+
+  <b>Players Connected</b>
+  <div id="players-connected">
+
+  </div>
+  <!--
+  <b>CARTAS</b>
+  <div id="my_hand"></div>
+  -->
+
+  <div id="hand_images">
+
+  </div>
+  <div id="deck">
+    <img src="/static/cartas/carta_back.jpg" id="deck-image">
+    <span id="cards-left"></span>
+  </div>
+
+  <div id="chat-container">
+
+    <div id="chat-messages-container">
+      <span class="chat-message">Welcome to Coup Online!</span>
+    </div>
+
+    <form id="submit-message-form" onsubmit="sendChatMessage();">
+      <input type="text" id="message" autocomplete="off">
+      <input type="submit" style="display:none;">
+    </form>
+  </div>
+
+
+  <div id="game-info">
+    <span id="turn-label">My Turn |</span>
+    <span id="coins"></span>
+  </div>
+
+
+  <div id="play">
+    <span id="play-intention-label"></span>
+
+    <div id="play-action-buttons">
+      <button id="challenge" onclick="challengePlay();">Challenge</button>
+      <button id="allow" onclick="allowPlay();">Allow</button>
+    </div>
+  </div>
+</body>
+
+</html>
