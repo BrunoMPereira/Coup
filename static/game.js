@@ -175,7 +175,11 @@ socket.on('new message', function (data) {
     message.textContent = data;
 
 
-    document.getElementById("chat-messages-container").appendChild(message);
+    var container = document.getElementById("chat-messages-container");
+    container.appendChild(message);
+    container.scrollTop = container.scrollHeight;
+    //window.scrollTo(0,document.querySelector("#chat-messages-container").scrollHeight);
+
 });
 
 $(document).ready(function () {
