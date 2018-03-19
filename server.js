@@ -12,11 +12,16 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 5000;
 
+
 app.set('port', port);
 app.use('/static', express.static(__dirname + '/static'));
 // Routing
 app.get('/', function (request, response) {
   response.sendFile(path.join(__dirname, '/static/index.html'));
+});
+
+app.listen(port, function(){
+  console.log('Starting server on port ' + port);
 });
 
 server.listen(port, function () {
