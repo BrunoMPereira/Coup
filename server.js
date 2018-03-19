@@ -39,7 +39,6 @@ io.on('connection', function (socket) {
     setInterval(function () {
       io.sockets.emit('players-connected update', clients);
       io.sockets.emit('turn update');
-      console.log("TURNO " + turn);
     }, 1500)
 
 
