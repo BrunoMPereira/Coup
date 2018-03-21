@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 5000;
 
-server.listen(port, function(){
+server.listen(port, function () {
   console.log('Starting server on port ' + port);
 });
 
@@ -24,7 +24,6 @@ app.get('/', function (request, response) {
 });
 
 
-
 var client = require('./client');
 var dealer = require('./dealer.js');
 
@@ -33,6 +32,8 @@ var cardDealer = new dealer.Dealer();
 
 var clients = [];
 var turn = 0;
+
+var currentPlay;
 
 io.on('connection', function (socket) {
   socket.on('new player', function (nick) {
@@ -99,7 +100,15 @@ io.on('connection', function (socket) {
 });
 
 function handlePlay(play, player) {
-  //refactor
+  var auxPlay = {
+    play: play,
+    player: player,
+    challenges: []
+  };
+
+  currentPlay = auxPlay;
+
+  //needs refactor
   if (play === 'take one coin') {
     player.coins++;
     nextTurn();
@@ -108,12 +117,22 @@ function handlePlay(play, player) {
   else if (play === 'take two coins') {
     clients.forEach(function (client) {
       if (client != player) {
-        io.sockets.connected[client.socketID].emit('play intention', {
-          play: play,
-          player: player
-        });
+        io.sockets.connected[client.socketID].emit('play intention', currentPlay);
       }
-    })
+    });
+
+    var timeLeft = 10;
+    var countdown = setInterval(function () {
+      --timeLeft;
+      console.log(timeLeft);
+      if (timeLeft <= 0) {
+        player.coins += 2;
+        io.sockets.connected[player.socketID].emit('coin update', player.coins);
+        nextTurn();
+        clearInterval(countdown);
+      }
+    }, 1000)
+
   }
 }
 

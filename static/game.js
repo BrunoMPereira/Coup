@@ -15,6 +15,7 @@ var hand = [];
 var myTurn = false;
 var coins = 2;
 var nick;
+var currentPlay;
 
 
 function newPlayer() {
@@ -30,7 +31,6 @@ function updateCoins() {
 }
 
 socket.on('hand', function (player) {
-    //console.log(player.hand.role);
     var images_div = document.getElementById("hand_images");
 
     if (!hand[0]) {
@@ -49,8 +49,6 @@ socket.on('hand', function (player) {
     }
 
     $("#my_hand").html(hand[0] + "<br>" + hand[1]);
-
-    //console.log(player);
 });
 
 socket.on('deck state', function (deck_fs) {
@@ -69,6 +67,10 @@ socket.on('deck state', function (deck_fs) {
 
 socket.on('give turn', function () {
     myTurn = true;
+})
+socket.on('coin update', function (coins_fs) {
+    coins = coins_fs;
+    updateCoins();
 })
 
 socket.on('turn update', function () {
@@ -97,14 +99,26 @@ socket.on('players-connected update', function (players) {
 })
 
 
-socket.on('play intention', function(play){
+socket.on('play intention', function (play) {
     showPlayIntention(play);
 })
 
-function showPlayIntention(play){
+function showPlayIntention(play) {
     var playIntentionLabel = document.getElementById("play-intention-label");
 
-    playIntentionLabel.textContent = play.player.nickname + " wants to " + play.play;;
+    playIntentionLabel.textContent = play.player.nickname + " wants to " + play.play;
+
+    var timeLeft = 10;
+    document.getElementById("timer").textContent = 10;
+
+    var countdown = setInterval(function () {
+        document.getElementById("timer").textContent = --timeLeft;
+        if (timeLeft <= 0){
+            clearInterval(countdown);
+            allowPlay();
+        }
+    }, 1000)
+
     $("#play").fadeIn(150);
 }
 
@@ -131,10 +145,10 @@ function oneCoin() {
 }
 
 function twoCoins() {
-    if(myTurn){
+    if (myTurn) {
         socket.emit('play', 'take two coins');
     }
-    
+
 }
 
 function shuffleDeck() {
@@ -146,14 +160,13 @@ function resetDeck() {
 
 }
 
-function challengePlay(){
-    $("#play").fadeOut(150);
+function challengePlay() {
+   //$("#play").fadeOut(150);
 }
 
-function allowPlay(){
+function allowPlay() {
     $("#play").fadeOut(150);
 }
-
 
 /*
     CHAT
@@ -178,8 +191,6 @@ socket.on('new message', function (data) {
     var container = document.getElementById("chat-messages-container");
     container.appendChild(message);
     container.scrollTop = container.scrollHeight;
-    //window.scrollTo(0,document.querySelector("#chat-messages-container").scrollHeight);
-
 });
 
 $(document).ready(function () {
